@@ -10,7 +10,7 @@ const cookieparser = require('cookie-parser')
 const userAuth = require('./middleware/auth')
 const cors = require('cors')
 app.use(cors({
-    origin: "http://localhost:5173", // whitelisting the api , only this origin can access the api and cookie will be set in cookie in broswer
+    origin: "http://localhost:5174", // whitelisting the api , only this origin can access the api and cookie will be set in cookie in broswer
     credentials: true
 })) // to allow different origin(Ip address) to access the server
 app.use(express.json()) // converts the incoming data which is in form of json to js object

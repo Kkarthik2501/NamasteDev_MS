@@ -15,7 +15,7 @@ const connection = new Schema({
         type: String,
         required: true,
         validate(value) {
-            if (!["ignore", "accepted", "rejected", "interested"].includes(value)) {
+            if (!["ignore", "accepted", "rejected", "interested","ignored"].includes(value)) {
                 throw new Error("Invalid status")
             }
         }
