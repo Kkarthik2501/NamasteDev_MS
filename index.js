@@ -60,7 +60,7 @@ app.patch("/user/:userId", async (req, res) => {
 mongoose().then(() => {
     console.log('Connected!');
     app.listen(4000, () => {
-        console.log("Server started.....")
+        console.log("Server started.....4000",)
     })
 });
 
