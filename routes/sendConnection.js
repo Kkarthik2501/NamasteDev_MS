@@ -7,13 +7,13 @@ const jwt = require('jsonwebtoken')
 const userAuth = require('../middleware/auth');
 const ConnectionRequestModel = require('../models/connection');
 const connectionRoutes = express.Router()
-
+const {run} = require('../utils/sendEmail')
 //to send connection to another user
 connectionRoutes.post("/request/send/:status/:userId", userAuth, async (req, res) => {
     try {
 
         const fromUserId = req.user._id.toString()
-
+        const username=req.user.firstName+" "+req.user.lastName
         const toUserId = req.params.userId
         const status = req.params.status
         const allowedStatus = ["interested", "ignored"]
@@ -40,6 +40,8 @@ connectionRoutes.post("/request/send/:status/:userId", userAuth, async (req, res
             status
         })
         const data = await connectionRequest.save()
+        const emailResponse = await run(username)  
+        console.log("Email Response: ", emailResponse)
         return res.json({ message: `${req.user.firstName} is ${status} in ${toUserId}`, data: data, success: true })
     }
     catch (err) {

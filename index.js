@@ -1,5 +1,7 @@
 const express = require('express')
 const app = express()
+const dotendv = require('dotenv')
+dotendv.config()
 const User = require('./models/user')
 const mongoose = require('./config/database')
 const validation = require('./utils/validation')
@@ -27,7 +29,7 @@ app.use("/", userRouter)
 app.get("/feed", async (req, res) => {
     try {
         const { token } = req.cookies
-        const decoded = jwt.verify(token, "SECRET@123!")
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
         console.log("cookie", decoded)
         const users = await User.find({})
 
@@ -59,8 +61,8 @@ app.patch("/user/:userId", async (req, res) => {
 })
 mongoose().then(() => {
     console.log('Connected!');
-    app.listen(4000, () => {
-        console.log("Server started.....4000",)
+    app.listen(process.env.PORT, () => {
+        console.log("Server running on....",process.env.PORT);
     })
 });
 
